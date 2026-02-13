@@ -1,0 +1,43 @@
+{
+  "routes": [
+    {
+      "route_id": "R001",
+      "route_name": "Chennai - SASI Campus",
+      "departure_time": "07:00 AM",
+      "arrival_time": "08:30 AM",
+      "stops": ["Chennai Central", "T. Nagar", "Guindy", "SASI Campus"],
+      "capacity": 45,
+      "frequency": "Daily"
+    },
+    {
+      "route_id": "R002",
+      "route_name": "Tambaram - SASI Campus",
+      "departure_time": "06:45 AM",
+      "arrival_time": "08:00 AM",
+      "stops": ["Tambaram", "Kattankulathur", "SASI Campus"],
+      "capacity": 50,
+      "frequency": "Daily"
+    },
+    {
+      "route_id": "R003",
+      "route_name": "Villupuram - SASI Campus",
+      "departure_time": "05:00 AM",
+      "arrival_time": "07:30 AM",
+      "stops": ["Villupuram", "Acharapakkam", "Kattankulathur", "SASI Campus"],
+      "capacity": 55,
+      "frequency": "Daily"
+    },
+    {
+      "route_id": "R004",
+      "route_name": "Tiruvallur - SASI Campus",
+      "departure_time": "06:30 AM",
+      "arrival_time": "08:15 AM",
+      "stops": ["Tiruvallur", "Ranipet", "Kattankulathur", "SASI Campus"],
+      "capacity": 40,
+      "frequency": "Daily"
+    }
+  ],
+  "last_updated": "2026-02-01",
+  "source": "sasi.ac.in/transport",
+  "contact": "transport@sasi.ac.in"
+}

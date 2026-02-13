@@ -1,0 +1,40 @@
+{
+  "departments": [
+    {
+      "name": "Computer Science & Engineering",
+      "code": "CSE",
+      "hod": {
+        "name": "Dr. Rajesh Kumar",
+        "email": "rajesh.kumar@sasi.ac.in",
+        "phone": "+91-44-2745-0000",
+        "office": "CSE Block - Room 301"
+      },
+      "faculty_count": 28,
+      "specializations": ["AI/ML", "Cloud Computing", "Cybersecurity", "Data Science"]
+    },
+    {
+      "name": "Electronics & Communication Engineering",
+      "code": "ECE",
+      "hod": {
+        "name": "Dr. Priya Sharma",
+        "email": "priya.sharma@sasi.ac.in",
+        "phone": "+91-44-2745-0001",
+        "office": "ECE Block - Room 201"
+      },
+      "faculty_count": 24,
+      "specializations": ["VLSI", "Signal Processing", "Embedded Systems"]
+    },
+    {
+      "name": "Mechanical Engineering",
+      "code": "MECH",
+      "hod": {
+        "name": "Prof. Vijay Singh",
+        "email": "vijay.singh@sasi.ac.in",
+        "phone": "+91-44-2745-0002",
+        "office": "MECH Block - Room 401"
+      },
+      "faculty_count": 26,
+      "specializations": ["CAD/CAM", "Thermal Engineering", "Manufacturing"]
+    }
+  ]
+}
