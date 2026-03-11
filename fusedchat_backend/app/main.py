@@ -1,3 +1,5 @@
+#app/main.py
+
 import os
 import shutil
 import asyncio
@@ -9,7 +11,7 @@ from typing import Optional
 from app.config import settings
 from app.services.ingestion import build_index
 from app.services.query_router import route_query
-from app.services.professional_brain import answer_question as prof_answer
+from app.services.professional_brain import answer_question as prof_answer, studio_orchestrator
 from app.services.admin_brain import answer_admin_query_direct as admin_answer
 from app.services.document_brain import (
     register_document, 
@@ -20,6 +22,14 @@ from app.database import save_chat, get_history
 
 
 # =============================================================================
+# SIMPLE CONVERSATION FILTER
+# =============================================================================
+
+GREETINGS = {"hello", "hi", "hey", "good morning", "good evening", "greetings"}
+THANKS_FAREWELLS = {"thank you", "thanks", "bye", "goodbye", "appreciate it"}
+
+
+# =============================================================================
 # REQUEST/RESPONSE MODELS
 # =============================================================================
 
@@ -27,6 +37,8 @@ class ChatRequest(BaseModel):
     session_id: str
     query: str
     mode: str = "fast"  # fast or deep for professional brain
+    regulation: str = "SITE 21"  # Academic curriculum version: SITE 18/21/23
+    document_id: Optional[str] = None  # Optional document ID for Studio mode
 
 
 class DocumentMode(BaseModel):
@@ -153,80 +165,114 @@ async def upload_document(
 @app.post("/chat")
 async def chat(request: ChatRequest):
     """
-    Main chat endpoint - routes query to appropriate brain.
+    Main chat endpoint - Uses Studio Orchestrator for multi-source intelligence.
     
-    Query -> Query Router -> Brain Selection -> Brain Processing -> Response
+    The Studio approach combines all available sources:
+    - Course Syllabus (Educational Brain)
+    - User Documents (Document Brain)
+    - Institute Data (Admin Brain)
     """
-    print(f"\n💬 Incoming Query: '{request.query}'")
+    
+    # 1. Quick system responses
+    q = request.query.lower().strip()
+    if q in ["hi", "hello", "hey", "greetings", "good morning", "good evening"]:
+        return {
+            "status": "success",
+            "response": "Hello! I am FusedChat Studio, your intelligent academic workspace. I can help you with coursework, uploaded documents, and campus information - all at once! How can I assist you today?",
+            "brain": "system",
+            "suggestions": [
+                "Create a study plan from my syllabus",
+                "Analyze my uploaded document",
+                "Show me the fee structure",
+                "Generate practice questions"
+            ]
+        }
+    
+    if q in ["how are you?", "how are you", "how r u"]:
+        return {
+            "status": "success",
+            "response": "I'm functioning perfectly and ready to help! I have access to your syllabus, documents, and all campus information.",
+            "brain": "system",
+            "suggestions": [
+                "What can you do?",
+                "Help me study for exams",
+                "Upload a document"
+            ]
+        }
+    
+    if "what can you do" in q or "your features" in q or "capabilities" in q:
+        return {
+            "status": "success",
+            "response": """I'm FusedChat Studio - your AI Research Lab! Here's what I can do:
+
+📚 **Academic Intelligence**: Answer questions using your course syllabus
+📄 **Document Analysis**: Analyze PDFs you upload (notes, assignments, research papers)
+🏫 **Campus Assistant**: Provide info about fees, buses, faculty, and more
+🎯 **Smart Tasks**: Create study plans, generate quizzes, explain code
+🔗 **Multi-Source Fusion**: Combine syllabus + your documents for comprehensive answers
+
+Just ask me anything or upload a document to get started!""",
+            "brain": "system",
+            "suggestions": [
+                "Show me bus routes",
+                "Create a study guide for Data Structures",
+                "What are the fee payment options?"
+            ]
+        }
+    
+    print(f"\n💬 Studio Processing: '{request.query}'")
     print(f"   Session: {request.session_id}")
     print(f"   Mode: {request.mode}")
+    print(f"   Document: {request.document_id or 'None'}")
     
     try:
-        # Step 1: Route query to appropriate brain
-        print("   🔀 Routing query...")
-        routing_info = await route_query(request.query)
+        # Use Studio Orchestrator for intelligent multi-source response
+        print("   🎯 Activating Studio Orchestrator...")
         
-        brain_type = routing_info.get("brain", "professional")
-        confidence = routing_info.get("confidence", 0.5)
+        result = await studio_orchestrator(
+            question=request.query,
+            session_id=request.session_id,
+            document_id=request.document_id,
+            mode=request.mode
+        )
         
-        print(f"   📂 Routed to: {brain_type} (confidence: {confidence})")
-        
-        # Step 2: Process with appropriate brain
-        if brain_type == "professional":
-            print("   🧠 Professional Brain: Education Q&A")
-            result = await prof_answer(
-                question=request.query,
-                mode=request.mode,
-                use_constraints=True
-            )
-        
-        elif brain_type == "administrator":
-            print("   🤖 Admin Brain: Institute Info")
-            result = await admin_answer(request.query)
-        
-        elif brain_type == "document":
-            # For document brain, we need document_id - this should come from frontend
-            print("   📄 Document Brain: PDF Analysis")
-            result = {
-                "answer": "Please upload a document first or specify document_id",
-                "brain": "document",
-                "error": "No document_id provided"
-            }
-        
-        else:
-            result = {
-                "answer": "I'm not sure how to help with that. Try asking about courses, institute info, or upload a document.",
-                "brain": "general"
-            }
-        
-        # Step 3: Save to database
+        # Save to database
         print(f"   💾 Saving to database...")
         try:
             await save_chat(
                 session_id=request.session_id,
                 query=request.query,
                 response=result.get("answer", ""),
-                mode=brain_type
+                mode="studio"
             )
         except Exception as db_err:
             print(f"   ⚠️ Database Error (Ignored): {db_err}")
         
-        print(f"   ✅ Response generated")
+        print(f"   ✅ Studio response generated")
         
-        # Step 4: Return response
+        # Return enriched response with suggestions
         return {
             "status": "success",
             "response": result.get("answer", ""),
-            "brain": brain_type,
+            "brain": result.get("brain", "studio_core"),
             "mode": result.get("mode", request.mode),
-            "confidence": result.get("confidence", 0.5),
-            "sources": result.get("sources", []),
-            "citations": result.get("citations", [])
+            "sources_used": result.get("sources_used", []),
+            "suggestions": result.get("suggestions", []),
+            "source_count": result.get("source_count", 0)
         }
     
     except Exception as exc:
-        print(f"❌ Chat Error: {exc}")
-        raise HTTPException(status_code=500, detail=str(exc))
+        print(f"❌ Studio Error: {exc}")
+        import traceback
+        traceback.print_exc()
+        
+        # Fallback response
+        return {
+            "status": "error",
+            "response": "I apologize, but I encountered an error processing your request. Please try rephrasing your question or contact support.",
+            "brain": "error",
+            "error": str(exc)
+        }
 
 
 # =============================================================================

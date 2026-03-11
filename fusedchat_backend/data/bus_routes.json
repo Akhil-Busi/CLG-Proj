@@ -1,43 +1,224 @@
 {
-  "routes": [
+  "transport_routes": [
     {
-      "route_id": "R001",
-      "route_name": "Chennai - SASI Campus",
-      "departure_time": "07:00 AM",
-      "arrival_time": "08:30 AM",
-      "stops": ["Chennai Central", "T. Nagar", "Guindy", "SASI Campus"],
-      "capacity": 45,
-      "frequency": "Daily"
+      "route_no": "1",
+      "route_name": "Palakollu",
+      "route_details": "Palakollu → Kavitam Marteru Alamuru → Brahmanachervu → Penumantra → Rameswaram → Manchili → SITE"
     },
     {
-      "route_id": "R002",
-      "route_name": "Tambaram - SASI Campus",
-      "departure_time": "06:45 AM",
-      "arrival_time": "08:00 AM",
-      "stops": ["Tambaram", "Kattankulathur", "SASI Campus"],
-      "capacity": 50,
-      "frequency": "Daily"
+      "route_no": "2",
+      "route_name": "Jangareddigudem",
+      "route_details": "Jangareddigudem → Bayyannagudem → Koyyalagudem → Gavaravaram → Ponguturu → SITE"
     },
     {
-      "route_id": "R003",
-      "route_name": "Villupuram - SASI Campus",
-      "departure_time": "05:00 AM",
-      "arrival_time": "07:30 AM",
-      "stops": ["Villupuram", "Acharapakkam", "Kattankulathur", "SASI Campus"],
-      "capacity": 55,
-      "frequency": "Daily"
+      "route_no": "3",
+      "route_name": "Rajamahendravaraml",
+      "route_details": "Rajamahendravaram → Aurangabad → Vadapalli → SITE"
     },
     {
-      "route_id": "R004",
-      "route_name": "Tiruvallur - SASI Campus",
-      "departure_time": "06:30 AM",
-      "arrival_time": "08:15 AM",
-      "stops": ["Tiruvallur", "Ranipet", "Kattankulathur", "SASI Campus"],
-      "capacity": 40,
-      "frequency": "Daily"
+      "route_no": "4",
+      "route_name": "Rajamahendravaram2",
+      "route_details": "Rajamahendravaram → Vijjeswaram → Madduru → Samisragudem → Nidadavolu → SITE"
+    },
+    {
+      "route_no": "5",
+      "route_name": "Elurul",
+      "route_details": "Eluru → Tangellamudi → Kovvali Bridge → Satyanarayanapuram → Gunc Bhimadole → Narayanapuram → SITE"
+    },
+    {
+      "route_no": "6",
+      "route_name": "Eluru2",
+      "route_details": "Eluru → Denduluru → Nachugunta → Badampudi → SITE"
+    },
+    {
+      "route_no": "7",
+      "route_name": "Gangannagudem",
+      "route_details": "Gangannagudem → Vegavaram → Gopannapalem → Somavarapupadu → Pathuru → BMDL Railway Station → Kurellagudem Pulla → Kaikaram → Unguturu → SITE"
+    },
+    {
+      "route_no": "8",
+      "route_name": "Bhimadole",
+      "route_details": "Bhimadole → Anjaneyanagaram → Polasanipalli → BMDL Junction → Nagulapalli → Gopalapuram Gunnampalli Kappalagunta → Lakshmipuram → Ghantavarigudem → Dhubacherla → Nallamadu → Gollagudem → Kothagudem Gopinadhapatnam Chebrole → SITE"
+    },
+    {
+      "route_no": "9",
+      "route_name": "Gopalapuram",
+      "route_details": "Gopalapuram → Devarapalli Ramannapalem → Dhumantunigudem → Krishnampalem → Yernagudem → Suryanaryanpuram → Atchannapalem → SITE"
+    },
+    {
+      "route_no": "10",
+      "route_name": "Kovvuru",
+      "route_details": "Kovvuru → Dommeru → Kapavaram → Pangidi → Meenanagaram → Chagallu → Brahmanagudem → SITE"
+    },
+    {
+      "route_no": "11",
+      "route_name": "Tyajampudi",
+      "route_details": "Tyajampudi → Kurukuru Korumamidi Tadimalla → Kata Koteswaram → Thimmarajupalem → SITE"
+    },
+    {
+      "route_no": "12",
+      "route_name": "Munipalli",
+      "route_details": "Munipalli Kanuru Usuluma. Tiparru Nadimpallikota Dammennu → Mortha → Undrajavaram → Tanuku → SITE"
+    },
+    {
+      "route_no": "13",
+      "route_name": "Penugonda",
+      "route_details": "Penugonda → Itampudi Eletipadu → Rapaka → East Vipparu → Kapavaram → Peravali → Tanuku → SITE"
+    },
+    {
+      "route_no": "14",
+      "route_name": "Ravulapalem",
+      "route_details": "Gopalapuram → Siddantham → Annavarappadu → Kandavalli Mukkamala → Nallakulavaripalem → Peravali → Tetali → SITE"
+    },
+    {
+      "route_no": "15",
+      "route_name": "Gowrupalli",
+      "route_details": "Gowrupalli Mallavaram Chandravaram → Markondapadu → Daravaram → Krishnayyapalem → SITE"
+    },
+    {
+      "route_no": "16",
+      "route_name": "Relangi",
+      "route_details": "Relangi → Velpuru → Tanuku → SITE"
+    },
+    {
+      "route_no": "17",
+      "route_name": "Madduru(NDD)",
+      "route_details": "Samisragudem → Gopavaram → Madduru Bridge → Purushothapalli Pandalaparru → D Muppavaram → Samisragudem → Nidadavole → Krishnayyapalem → SITE"
+    },
+    {
+      "route_no": "18",
+      "route_name": "Bhimavaram",
+      "route_details": "Pedamiram → Bhimavaram → Gollalakoderu → Garagaparru → Yandagandi → Kesavaram → Tadepalligudem → SITE"
+    },
+    {
+      "route_no": "19",
+      "route_name": "Yadavolu",
+      "route_details": "Yadavolu → Chinnayagudem → Sangayagudem → Anantapalli Pedatadepalli"
+    },
+    {
+      "route_no": "20",
+      "route_name": "Nidadavole",
+      "route_details": "Nidadavole Local (Bridge → Ganapathi Center → Bus Stand) → Settipeta → Krishnayyapalem → Prathipadu → SITE"
+    },
+    {
+      "route_no": "21",
+      "route_name": "Kalavalapalli",
+      "route_details": "Kalavalapalli → Kata Koteswaram → Suryapuram → Unkaramilli- Thimmarajupalem → Nidadavole → Basivireddipeta → Navabpalem → SITE"
+    },
+    {
+      "route_no": "22",
+      "route_name": "Chagallu",
+      "route_details": "Chagallu → Unagatla → S Muppavaram → Brahmanagudem → Daravaram Gate → Nidadavole → SITE"
+    },
+    {
+      "route_no": "23",
+      "route_name": "Krovvidi",
+      "route_details": "Krovvidi → Seetharampuram → Bhuvvanapalli → Bhavayyapalem → Chanamilli Adda Road → Saripalli → Ganapavaram → Varadarajupalem → velagapalli → kommara → Parimalla → Yanalapalli → kaspa pentapadu → Pentapadu → Mudunurupadu → SITE"
+    },
+    {
+      "route_no": "24",
+      "route_name": "Attili",
+      "route_details": "Attili → Uradallapalem → kodavalli → komarru → Ramachandrapuram Meenavalluru → Kondepadu → Korumilli Venkayya Kaluva → Chintapalli Road → SITE"
+    },
+    {
+      "route_no": "25",
+      "route_name": "Velagadurru",
+      "route_details": "Velagadurru → Tadiparru → Tanuku → Duvva → SITE"
+    },
+    {
+      "route_no": "26",
+      "route_name": "Iragavaram",
+      "route_details": "Iragavaram → Gopalapuram → Tanuku → SITE"
+    },
+    {
+      "route_no": "27",
+      "route_name": "Tanuku(Akkamamba)",
+      "route_details": "Tanuku (Sugar Factory Gate → Railway Gate Akkamamba → Medical Trust Bhashyam → Veeranarayana Kappala Vekanna → Narendra Center) → Allampuram → SITE"
+    },
+    {
+      "route_no": "28",
+      "route_name": "Undrajavaram",
+      "route_details": "Undrajavaram → Palangi Tanuku → SITE"
+    },
+    {
+      "route_no": "29",
+      "route_name": "Nidadavole",
+      "route_details": "Nidadavole Local (Sasi School → NTR Statue → Meherbaba Trust Patimidha → Ganesh Chowk → Why Not Shopping Mall → R&B Guest House) → SITE"
+    },
+    {
+      "route_no": "30",
+      "route_name": "Thimmarajupalem (NDD)",
+      "route_details": "Thimmarajupalem → Nidadavole Basivireddipeta → Settipeta → Prathipadu → SITE"
+    },
+    {
+      "route_no": "31",
+      "route_name": "Pothavaram",
+      "route_details": "Pothavaram → Kavuluru Chipurugudem → Nallajerla → Prakashraopalem → Venkatramannagudem → Vellamilli → TPG HB Colony → SITE"
+    },
+    {
+      "route_no": "32",
+      "route_name": "Manchili",
+      "route_details": "Manchili Attili → Moyyeru → Pippara → Chilakampadu Mudunuru → Pentapadu → Mudunurupadu → Relangi Chitra Mandir → SITE"
+    },
+    {
+      "route_no": "33",
+      "route_name": "Velivennu",
+      "route_details": "Velivennu Local Settipeta → SITE"
+    },
+    {
+      "route_no": "34",
+      "route_name": "Mandapaka",
+      "route_details": "Mandapaka → Pydiparru → Allampuram → SITE"
+    },
+    {
+      "route_no": "35",
+      "route_name": "Kaldari",
+      "route_details": "Kaldari → Chilakapadu → Pasalapudi → Suryaraopalem → SITE"
+    },
+    {
+      "route_no": "36",
+      "route_name": "Pullalapadu",
+      "route_details": "Pullalapadu → Nallajerla Center → Prakashraopalem → Venkatramannagudem → Vellamilli Pedatadepalli → SITE"
+    },
+    {
+      "route_no": "37",
+      "route_name": "Tanuku(Women's College)",
+      "route_details": "Tanuku (Sasi College → Chaitanya School Highway Kalyanamandapam → Women's College → NTR Park → Kesavaswamy Temple Court → Meenakshi Medicals → Suryalayam Street) → SITE"
+    },
+    {
+      "route_no": "38",
+      "route_name": "Jagannadhapuram",
+      "route_details": "Jagannadhapuram → Madhavaram → Dandagarra → Amruthapuram → Itukulagunta → Metta Upparagudem → SITE"
+    },
+    {
+      "route_no": "39",
+      "route_name": "Chodavaram",
+      "route_details": "Chodavaram → Telikicherla → Kunavaram → Bangarugudem → Veerampalem → Pattempalem → Kommugudem → Neeladripuram → Krishnapuram → Kadiyadda → Chinatadepalli → SITE"
+    },
+    {
+      "route_no": "40",
+      "route_name": "Tanuku (Venkateswara)",
+      "route_details": "Tanuku Venkateswara → Flyove"
+    },
+    {
+      "route_no": "41",
+      "route_name": "Singarajupalem",
+      "route_details": "Singarajupalem → Avupadu → Prakashraopalem → Venkatramannagudem → Vellamilli → Pedatadepalli → SITE"
+    },
+    {
+      "route_no": "42",
+      "route_name": "Duvva",
+      "route_details": "Duvva → Tadepalligudem Local → SITE"
+    },
+    {
+      "route_no": "N/A",
+      "route_name": "Tadepalligudem",
+      "route_details": "Tadepalligudem Local (Bridge → NTR Statue → Udipi Hotel IO Petrol Bunk → Bus Stand →(Ganesh Nagar) → SITE"
+    },
+    {
+      "route_no": "N/A",
+      "route_name": "Tadepalligudem 2",
+      "route_details": "Tadepalligudem Local (Tadepalligudem Market → Police Island → Yagarlapalli → Bypass Route → (HB Colony) → SITE"
     }
-  ],
-  "last_updated": "2026-02-01",
-  "source": "sasi.ac.in/transport",
-  "contact": "transport@sasi.ac.in"
+  ]
 }

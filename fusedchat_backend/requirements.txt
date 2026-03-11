@@ -33,3 +33,4 @@ pydantic-settings==2.1.0
 # Utilities
 requests==2.31.0
 aiohttp==3.9.1
+tavily-python==0.3.5

@@ -1,3 +1,4 @@
+#app/services/admin_brain.py
 """
 Administrator Brain Service
 ============================
@@ -126,7 +127,7 @@ def detect_category(query: str) -> str:
 
 def search_faculty(query: str) -> str:
     """
-    Search faculty directory for HOD or department info.
+    Search faculty directory for HOD or department info using fuzzy matching.
     
     Args:
         query: Faculty-related query
@@ -136,21 +137,37 @@ def search_faculty(query: str) -> str:
     """
     query_lower = query.lower()
     
-    # Search criteria
-    hod_keywords = ["hod", "head", "department", "who is"]
-    contact_keywords = ["contact", "phone", "email", "reach"]
+    # Get faculty info from bus_routes.json
+    faculty_info = BUS_ROUTES_DATA.get("faculty_info", {})
     
     results = []
     
-    for dept in FACULTY_DATA.get("departments", []):
-        dept_name_lower = dept.get("name", "").lower()
-        code_lower = dept.get("code", "").lower()
+    for dept_code, dept_data in faculty_info.items():
+        dept_name = dept_code.upper()
+        hod_name = dept_data.get("hod", "N/A")
         
-        # Check if department matches
-        if dept_name_lower in query_lower or any(code in query_lower for code in [code_lower]):
+        # Fuzzy match: Check if department code or name appears in query
+        if fuzzy_match(query_lower, dept_code, threshold=0.5) or \
+           fuzzy_match(query_lower, dept_name, threshold=0.5) or \
+           fuzzy_match(query_lower, hod_name, threshold=0.6):
             
-            # Extract requested info
-            if any(kw in query_lower for kw in hod_keywords):
+            results.append(f"""
+**{dept_name} Department**
+HOD: {hod_name}
+Location: {dept_data.get('location', 'N/A')}
+Phone: {dept_data.get('office_phone', 'N/A')}
+Email: {dept_data.get('email', 'N/A')}
+""")
+    
+    # If no faculty match found, search in loaded faculty data as fallback
+    if not results and FACULTY_DATA:
+        for dept in FACULTY_DATA.get("departments", []):
+            dept_name_lower = dept.get("name", "").lower()
+            code_lower = dept.get("code", "").lower()
+            
+            if fuzzy_match(query_lower, dept_name_lower, threshold=0.6) or \
+               fuzzy_match(query_lower, code_lower, threshold=0.6):
+                
                 hod = dept.get("hod", {})
                 results.append(f"""
 **{dept.get('name')} Department**
@@ -158,79 +175,67 @@ HOD: {hod.get('name', 'N/A')}
 Email: {hod.get('email', 'N/A')}
 Phone: {hod.get('phone', 'N/A')}
 Office: {hod.get('office', 'N/A')}
-""")
-            elif any(kw in query_lower for kw in contact_keywords):
-                hod = dept.get("hod", {})
-                results.append(f"""
-**{dept.get('name')} Contact**
-Name: {hod.get('name', 'N/A')}
-Email: {hod.get('email', 'N/A')}
-Phone: {hod.get('phone', 'N/A')}
-""")
-            else:
-                # Default: show full department info
-                hod = dept.get("hod", {})
-                results.append(f"""
-**{dept.get('name')} Department**
-Code: {dept.get('code')}
-HOD: {hod.get('name', 'N/A')}
 Specializations: {', '.join(dept.get('specializations', []))}
-Faculty Count: {dept.get('faculty_count', 'N/A')}
 """)
     
-    return "\n".join(results) if results else "Department not found. Available departments: CSE, ECE, MECH"
+    return "\n".join(results) if results else ""
+
+
+def fuzzy_match(s1: str, s2: str, threshold: float = 0.6) -> bool:
+    """
+    Fuzzy string matching using Levenshtein-like logic.
+    
+    Args:
+        s1, s2: Strings to compare
+        threshold: Match confidence (0-1)
+        
+    Returns:
+        True if strings are similar enough
+    """
+    s1_lower = s1.lower().strip()
+    s2_lower = s2.lower().strip()
+    
+    # Exact match
+    if s1_lower == s2_lower:
+        return True
+    
+    # Substring match
+    if s1_lower in s2_lower or s2_lower in s1_lower:
+        return True
+    
+    # Phonetic/Prefix matching
+    # Split into words and check partial matches
+    s1_words = set(s1_lower.split())
+    s2_words = set(s2_lower.split())
+    
+    if s1_words & s2_words:  # Any word in common
+        return True
+    
+    # Simple Levenshtein-like distance check
+    # Count matching characters
+    matches = sum(1 for c in s1_lower if c in s2_lower)
+    similarity = matches / max(len(s1_lower), len(s2_lower))
+    
+    return similarity >= threshold
 
 
 def search_buses(query: str) -> str:
-    """
-    Search bus routes and timings.
-    
-    Args:
-        query: Bus-related query
-        
-    Returns:
-        Formatted bus information
-    """
+    """Improved bus search: Checks route names and stop details."""
     query_lower = query.lower()
+    found_routes = []
     
-    # Keywords
-    timing_keywords = ["time", "when", "depart", "arrive", "schedule"]
-    stop_keywords = ["stop", "route", "place", "city"]
+    # Get the routes from your JSON
+    routes = BUS_ROUTES_DATA.get("transport_routes", [])
     
-    results = []
-    
-    for route in BUS_ROUTES_DATA.get("routes", []):
-        route_name_lower = route.get("route_name", "").lower()
+    for route in routes:
+        name = route.get("route_name", "").lower()
+        details = route.get("route_details", "").lower()
         
-        # Check if route matches
-        if route_name_lower in query_lower or any(stop in query_lower for stop in route.get("stops", [])):
+        # Match if the city name is in the route name OR the stop details
+        if name in query_lower or any(word.strip() in query_lower for word in details.split("→")):
+            found_routes.append(f"Route {route.get('route_no')}: {route.get('route_name')} ({route.get('route_details')})")
             
-            if any(kw in query_lower for kw in timing_keywords):
-                results.append(f"""
-**{route.get('route_name')} Route**
-Departure: {route.get('departure_time')}
-Arrival: {route.get('arrival_time')}
-Frequency: {route.get('frequency')}
-Capacity: {route.get('capacity')} seats
-""")
-            elif any(kw in query_lower for kw in stop_keywords):
-                results.append(f"""
-**{route.get('route_name')} Route**
-Stops: {' → '.join(route.get('stops', []))}
-Capacity: {route.get('capacity')} seats
-""")
-            else:
-                # Default: show full route info
-                results.append(f"""
-**{route.get('route_name')} Route**
-Departure: {route.get('departure_time')}
-Arrival: {route.get('arrival_time')}
-Stops: {' → '.join(route.get('stops', []))}
-Capacity: {route.get('capacity')} seats
-Frequency: {route.get('frequency')}
-""")
-    
-    return "\n".join(results) if results else "Route not found. Available routes: Chennai, Tambaram, Villupuram, Tiruvallur"
+    return "\n".join(found_routes) if found_routes else ""
 
 
 def search_fees(query: str) -> str:
@@ -258,7 +263,7 @@ def search_fees(query: str) -> str:
         batch = FEES_DATA["batches"][0]
     
     if not batch:
-        return "Fee structure data not available."
+        return ""
     
     batch_year = batch.get("batch", "Unknown")
     
@@ -388,6 +393,25 @@ async def answer_admin_query_direct(query: str) -> Dict:
         "data_source": "hardcoded",
         "confidence": 0.85
     }
+
+
+async def get_admin_context(query: str) -> str:
+    """Targeted context retrieval for the orchestrator."""
+    q = query.lower()
+    
+    # 1. Bus/Transport Logic
+    if any(k in q for k in ["bus", "route", "timing", "transport", "travel"]):
+        return search_buses(query)
+    
+    # 2. Faculty Logic (Returning empty so Orchestrator triggers Web Search as requested)
+    if any(k in q for k in ["hod", "faculty", "professor", "head of"]):
+        return "" 
+        
+    # 3. Fees Logic
+    if "fee" in q or "tuition" in q:
+        return search_fees(query)
+
+    return ""
 
 
 # =============================================================================

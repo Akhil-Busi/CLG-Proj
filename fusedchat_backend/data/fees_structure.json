@@ -1,50 +1,105 @@
 {
-  "batches": [
-    {
-      "batch": 2025,
-      "tuition_fees_per_semester": 75000,
-      "development_fees": 10000,
-      "library_fees": 2000,
-      "sports_fees": 1500,
-      "total_per_semester": 88500,
-      "total_per_year": 177000,
-      "total_4year": 708000
-    },
-    {
-      "batch": 2024,
-      "tuition_fees_per_semester": 72000,
-      "development_fees": 10000,
-      "library_fees": 2000,
-      "sports_fees": 1500,
-      "total_per_semester": 85500,
-      "total_per_year": 171000,
-      "total_4year": 684000
-    },
-    {
-      "batch": 2023,
-      "tuition_fees_per_semester": 70000,
-      "development_fees": 9000,
-      "library_fees": 2000,
-      "sports_fees": 1500,
-      "total_per_semester": 82500,
-      "total_per_year": 165000,
-      "total_4year": 660000
-    }
-  ],
-  "exam_fees": {
-    "regular_exam": 500,
-    "supply_exam": 1000,
-    "revaluation": 300,
-    "transcript": 100
-  },
-  "hostel_fees": {
-    "AC_room": 45000,
-    "non_AC_room": 30000,
-    "mess_charges": 15000,
-    "total_AC_per_year": 120000,
-    "total_non_AC_per_year": 90000
-  },
-  "last_updated": "2026-02-01",
-  "source": "sasi.ac.in/fee-structure",
-  "contact": "finance@sasi.ac.in"
+  "fee_structures": {
+    "b_tech": [
+      {
+        "s_no": 1,
+        "course": "Artificial Intelligence & Machine Learning",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 2,
+        "course": "Civil Engineering",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 3,
+        "course": "Computer Science & Engineering",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 4,
+        "course": "CSE (Artificial Intelligence & Machine Learning)",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 5,
+        "course": "CSE (Data Science)",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 6,
+        "course": "CSE (Internet of things & Cyber Security including block chain technology)",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 7,
+        "course": "Electronics & Communication Engineering",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 8,
+        "course": "Electrical & Electronics Engineering",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 9,
+        "course": "Information Technology",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      },
+      {
+        "s_no": 10,
+        "course": "Mechanical Engineering",
+        "category_a_convenor_quota_fee": "₹ 43,000"
+      }
+    ],
+    "post_graduate": [
+      {
+        "s_no": 1,
+        "course": "Master of Business Administration",
+        "category_a_convenor_quota_fee": "₹ 35,000"
+      },
+      {
+        "s_no": 2,
+        "course": "M.Tech – VLSI& Embedded Systems",
+        "category_a_convenor_quota_fee": "₹ 50,000"
+      },
+      {
+        "s_no": 3,
+        "course": "M.Tech – Computer Science and Engineering",
+        "category_a_convenor_quota_fee": "₹ 50,000"
+      },
+      {
+        "s_no": 4,
+        "course": "M.Tech – Power Electronics",
+        "category_a_convenor_quota_fee": "₹ 50,000"
+      },
+      {
+        "s_no": 5,
+        "course": "M.Tech – Computer Aided Design & Computer Aided Manufacturing",
+        "category_a_convenor_quota_fee": "₹ 50,000"
+      }
+    ],
+    "diploma": [
+      {
+        "s_no": 1,
+        "course": "Diploma – Electronics and Communication Engineering",
+        "category_a_convenor_quota_fee": "₹ 25,000"
+      },
+      {
+        "s_no": 2,
+        "course": "Diploma – Electrical and Electronics Engineering",
+        "category_a_convenor_quota_fee": "₹ 25,000"
+      },
+      {
+        "s_no": 3,
+        "course": "Diploma – Mechanical Engineering",
+        "category_a_convenor_quota_fee": "₹ 25,000"
+      },
+      {
+        "s_no": 4,
+        "course": "Diploma – Computer Engineering",
+        "category_a_convenor_quota_fee": "₹ 25,000"
+      }
+    ]
+  }
 }

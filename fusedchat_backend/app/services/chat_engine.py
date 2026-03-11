@@ -1,3 +1,4 @@
+#app/services/chat_engine.py
 import os
 import sys
 from langchain_huggingface import HuggingFaceEmbeddings

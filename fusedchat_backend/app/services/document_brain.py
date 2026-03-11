@@ -1,3 +1,4 @@
+#app/services/document_brain.py
 """
 Document Brain Service (NotebookLM Mode)
 ========================================
@@ -312,7 +313,7 @@ def retrieve_relevant_chunks(
         List of (text, page_number) tuples
     """
     try:
-        results = vector_store.similarity_search_with_scores(query, k=k)
+        results = vector_store.similarity_search_with_relevance_scores(query, k=k)
         
         chunks = [
             (doc.page_content, doc.metadata.get("page", 0))
@@ -477,7 +478,7 @@ def register_document(
         "document_id": document_id,
         "filename": filename,
         "status": "registered",
-        "chunks_created": len(vector_store.index.docstore),
+        "chunks_created": vector_store.index.ntotal,
     }
 
 
